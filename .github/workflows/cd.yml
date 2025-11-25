@@ -1,0 +1,21 @@
+name: CD
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Render Deploy
+      uses: render-examples/deploy-service@v1
+      with:
+        api_key: ${{ secrets.RENDER_API_KEY }}
+        service_id: ${{ secrets.RENDER_SERVICE_ID }}
+        branch: main
