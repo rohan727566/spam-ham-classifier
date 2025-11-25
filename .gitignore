@@ -1,0 +1,77 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+.venv/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb
+
+# Model artifacts
+model/*.pkl
+model/*.joblib
+model/*.h5
+model/*.pt
+!model/.gitkeep
+
+# Data (large files)
+data/*.csv
+data/*.tsv
+data/*.txt
+!data/.gitkeep
+!data/README.md
+
+# Logs
+*.log
+logs/
+
+# Environment variables
+.env
+.env.local
+
+# Testing
+.coverage
+.pytest_cache/
+htmlcov/
+
+# Docker
+.dockerignore
+
+# OS
+Thumbs.db
