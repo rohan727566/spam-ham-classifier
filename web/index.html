@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spam/Ham Classifier - Email Classification System</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <span class="icon">🚀</span>
+                <h1>Spam/Ham Classifier</h1>
+            </div>
+            <p class="subtitle">AI-powered email classification using Natural Language Processing</p>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Input Section -->
+            <section class="input-section">
+                <h2>Enter Email Text</h2>
+                <textarea 
+                    id="emailText" 
+                    placeholder="Paste or type email content here...&#10;&#10;Example:&#10;'Congratulations! You've won a $1000 gift card. Click here to claim now!'&#10;or&#10;'Hey, are we still meeting for lunch tomorrow?'"
+                    rows="8"
+                ></textarea>
+                
+                <div class="button-group">
+                    <button id="predictBtn" class="btn btn-primary">
+                        <span class="btn-icon">🔍</span>
+                        Classify Email
+                    </button>
+                    <button id="clearBtn" class="btn btn-secondary">
+                        <span class="btn-icon">🗑️</span>
+                        Clear
+                    </button>
+                </div>
+
+                <!-- Sample Messages -->
+                <div class="samples">
+                    <h3>Try Sample Messages:</h3>
+                    <div class="sample-buttons">
+                        <button class="sample-btn" data-type="ham">
+                            📧 Legitimate Email
+                        </button>
+                        <button class="sample-btn" data-type="spam">
+                            ⚠️ Spam Email
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Results Section -->
+            <section class="results-section" id="resultsSection" style="display: none;">
+                <h2>Classification Results</h2>
+                
+                <div class="result-card">
+                    <div class="result-header">
+                        <div class="result-label" id="resultLabel">
+                            <span class="label-icon" id="labelIcon"></span>
+                            <span id="labelText"></span>
+                        </div>
+                        <div class="result-confidence" id="resultConfidence"></div>
+                    </div>
+
+                    <div class="result-details">
+                        <h3>Probability Distribution</h3>
+                        <div class="probability-bars">
+                            <div class="prob-item">
+                                <div class="prob-label">
+                                    <span class="prob-icon">✅</span>
+                                    <span>Ham (Legitimate)</span>
+                                </div>
+                                <div class="prob-bar-container">
+                                    <div class="prob-bar prob-bar-ham" id="hamBar"></div>
+                                    <span class="prob-value" id="hamValue"></span>
+                                </div>
+                            </div>
+                            <div class="prob-item">
+                                <div class="prob-label">
+                                    <span class="prob-icon">🚫</span>
+                                    <span>Spam</span>
+                                </div>
+                                <div class="prob-bar-container">
+                                    <div class="prob-bar prob-bar-spam" id="spamBar"></div>
+                                    <span class="prob-value" id="spamValue"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="cleaned-text">
+                        <h3>Processed Text</h3>
+                        <p id="cleanedText"></p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Loading Indicator -->
+            <div class="loading" id="loading" style="display: none;">
+                <div class="spinner"></div>
+                <p>Analyzing email...</p>
+            </div>
+
+            <!-- Error Message -->
+            <div class="error-message" id="errorMessage" style="display: none;">
+                <span class="error-icon">⚠️</span>
+                <span id="errorText"></span>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>
+                <strong>Built with:</strong> Python, FastAPI, scikit-learn, NLTK 
+                | <strong>Model:</strong> Multinomial Naive Bayes + TF-IDF
+                | <strong>Author:</strong> Rohan Kumar
+            </p>
+            <p class="api-link">
+                <a href="/api/docs" target="_blank">📖 API Documentation</a>
+            </p>
+        </footer>
+    </div>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>
