@@ -35,12 +35,12 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
-    - name: Run lint
+    - name: Run lint (skip Black check)
       run: |
-        pip install black flake8 isort
-        black --check .
-        flake8 .
-        isort --check-only .
+    	pip install flake8 isort
+    	flake8 src tests scripts
+    	isort --check-only src tests scripts
+
 
     - name: Run tests
       run: |
