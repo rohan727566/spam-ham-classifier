@@ -4,9 +4,8 @@ API tests for FastAPI spam classifier server
 import pytest
 from fastapi.testclient import TestClient
 
-from src.spam_classifier.server import app, classifier
 from src.spam_classifier.model import SpamClassifier
-from src.spam_classifier.config import Config
+from src.spam_classifier.server import app
 
 
 @pytest.fixture(scope="session", autouse=True)
@@ -42,12 +41,10 @@ def test_health_check(client):
 
 def test_predict_ham(client):
     """Predict endpoint should classify a ham message correctly"""
-    payload = {
-        "text": "Hey, are we still meeting for lunch tomorrow?"
-    }
+    payload = {"text": "Hey, are we still meeting for lunch tomorrow?"}
     response = client.post("/api/predict", json=payload)
     assert response.status_code == 200
-    
+
     data = response.json()
     assert data["label"] in ["ham", "spam"]
     assert "confidence" in data
@@ -60,12 +57,10 @@ def test_predict_ham(client):
 
 def test_predict_spam(client):
     """Predict endpoint should classify a spam message with high spam probability"""
-    payload = {
-        "text": "WINNER! You have won $1000 cash prize. Call now to claim FREE!"
-    }
+    payload = {"text": "WINNER! You have won $1000 cash prize. Call now to claim FREE!"}
     response = client.post("/api/predict", json=payload)
     assert response.status_code == 200
-    
+
     data = response.json()
     assert data["label"] in ["ham", "spam"]
     assert 0 <= data["confidence"] <= 1
@@ -85,12 +80,12 @@ def test_predict_batch(client):
     payload = {
         "texts": [
             "Thanks for your help today.",
-            "FREE prize waiting for you, click now!"
+            "FREE prize waiting for you, click now!",
         ]
     }
     response = client.post("/api/predict/batch", json=payload)
     assert response.status_code == 200
-    
+
     data = response.json()
     assert isinstance(data, list)
     assert len(data) == 2
@@ -114,11 +109,11 @@ def test_predict_file_wrong_extension(client, tmp_path):
     """File upload should reject non-txt files"""
     file_path = tmp_path / "emails.csv"
     file_path.write_text("test message")
-    
+
     with file_path.open("rb") as f:
         files = {"file": ("emails.csv", f, "text/csv")}
         response = client.post("/api/predict/file", files=files)
-    
+
     assert response.status_code == 400
     data = response.json()
     assert "Only .txt files are supported" in data["detail"]
